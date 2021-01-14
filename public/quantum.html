@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="readApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="title">{{page.name}}</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Andika+New+Basic&family=Comfortaa:wght@300;400&family=Montserrat:wght@300&family=Raleway&family=Work+Sans:wght@300;400&display=swap"
+        rel="stylesheet">
+
+
+</head>
+
+<body ng-controller="readController">
+    <div class="container">
+        <div class="section">
+            <h1 class="comfortaa">{{page.name}}</h1>
+        </div>
+        <div class="divider"></div>
+        <div class="section row">
+            <div class="col s3" ng-repeat="font in fonts">
+                <button class="btn yellow waves-effect waves-light black-text" type="button"
+                    ng-click="setCFont(font)">{{font}}</button>
+                <br>
+                <br>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="section">
+            <div class="row">
+                <div class="col s12 content" ng-class="cFont">
+                    <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                    culpa qui officia deserunt mollit anim id est laborum.
+                </div> -->
+
+                </div>
+                <div class="col s12 content" ng-class="cFont">
+                    <h2 class="montserrat">Objectives</h2>
+                    <p>
+                        By this evening, we will have a concrete understanding on -
+                    </p>
+
+                    <ul>
+                        <li ng-repeat="point in points">{{point}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="section">
+                <div class="row">
+                    <div class="col s12 content">
+                        <h2 ng-class="cFont">Continuous Random Variables</h2>
+                        <p ng-class="cFont">
+                            Here's an overview about the a special class of random variables <i>continuous ones</i> .
+                            <br>
+                            <br>
+                            An example, the exact moment when a certain event will happen. You can't say when exactly
+                            something will happen. You'll define more of a region in time.
+                            <br>
+                            <br>
+                            For such situation, we idenitfy that we don't have the probability defined for a particular
+                            instance. It will be 0. Instead, we shall have to look at the probability over a certain
+                            region.
+                            <br>
+                            <br>
+                        </p>
+                        <h3 ng-class="cFont">
+                            Probability distribution function
+                        </h3>
+                        <p ng-class="cFont">
+                            It is exactly as it sounds. It's a function that show's how the spread of the probability
+                            is.
+                            <br>
+                            <br>
+                            Probability of an event corresponds the probability of the random variable being in a some
+                            range of possible values.
+                            Integration of the distribution function in the given region provides the required
+                            probability.
+
+                            <br>
+                            
+                        </p>
+                        <div id="calculator" style="width: 100%; height: 400px;"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+</body>
+
+<style>
+    .andika {
+        font-family: 'Andika New Basic', sans-serif;
+
+    }
+
+    .montserrat {
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .raleway {
+        font-family: 'Raleway', sans-serif;
+    }
+
+    .work-sans {
+        font-family: 'Work Sans', sans-serif;
+    }
+
+    .comfortaa {
+        font-family: 'Comfortaa', sans-serif;
+    }
+
+    .content {
+        font-size: 20px
+    }
+
+    .hfont {
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    code {
+        background-color: grey;
+    }
+</style>
+
+<!--Compiled and minified JavaScript-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+<!-- Who knew desmos had an api -->
+<script src="https://www.desmos.com/api/v1.5/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+<script>
+    // Superpowered by angular
+    angular.module('readApp', [])
+        .controller('readController', function ($scope, $sce) {
+
+            // Page prep
+            $scope.page = {
+                'name': 'Probability'
+            }
+            $scope.points = [
+                'Discrete Random Variables',
+                'Continuous Random Variables'
+            ]
+            document.getElementById('title').innerHTML = $scope.page.name
+
+            // List of fonts
+            $scope.fonts = [
+                'montserrat',
+                'raleway',
+                'comfortaa',
+                'work-sans',
+                'andika'
+            ]
+
+            // Default
+            $scope.cFont = $scope.fonts[Math.floor(Math.random() * $scope.fonts.length)]
+
+            $scope.setCFont = (sel) => {
+                $scope.cFont = sel;
+                console.log('Hello');
+            }
+
+        })
+
+    var elt = document.getElementById('calculator');
+    var calculator = Desmos.GraphingCalculator(elt);
+    calculator.setExpression({ id: 'graph1', latex: 'y=x^2' });
+</script>
+
+</html>

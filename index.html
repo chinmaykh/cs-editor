@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="carnaticApp">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carnatic Song editor</title>
+
+    <!-- Compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+  </head>
+
+  <style>
+    .head_font {
+      font-family: "Comfortaa", cursive;
+    }
+
+    /* valid color */
+    .input-field input[type="text"].valid.ng-dirty {
+      border-bottom: 1px solid green;
+      box-shadow: 0 1px 0 0 green;
+    }
+
+    /* invalid color */
+    .input-field input[type="text"].invalid.ng-dirty {
+      border-bottom: 1px solid red;
+      box-shadow: 0 1px 0 0 red;
+    }
+
+    .flines {
+      letter-spacing: 2em;
+    }
+  </style>
+
+  <body ng-controller="rtpController">
+    <div class="container">
+      <div class="row">
+        <div class="col s12">
+          <h1 class="head_font">CS Editor v1.0.0</h1>
+        </div>
+        <div class="col s12">
+          <div class="divider"></div>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      .u {
+        text-decoration: underline;
+      }
+    </style>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+
+    <script>
+      // Superpowered by angular
+      angular
+        .module("carnaticApp", [])
+        .controller("rtpController", function($scope, $sce) {
+          console.log("Raaga Tala Pallavi");
+
+          // Create a blank sheet
+          $scope.score = [];
+
+          // Module tala ? import from file
+          function Tala(name = String, col = Array, rowC = Number) {
+            this.name = name;
+            this.col = col;
+            this.rowC = rowC;
+          }
+
+          // Maintain base array of talas
+          talas = [];
+
+          talas.push(new Tala("Adi", [4, 4], 2));
+          talas.push(new Tala("Roopaka", [4, 2], 4));
+          talas.push(new Tala("Triputa", [3, 4], 4));
+
+          // List of talas
+          $scope.talas = talas;
+
+          var select_elems = document.querySelectorAll("select");
+          var select_instances = M.FormSelect.init(select_elems, {});
+        });
+    </script>
+  </body>
+</html>
