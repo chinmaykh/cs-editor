@@ -45,50 +45,42 @@
                 <div class="col s12 content" ng-class="cFont">
                     <h2 class="montserrat">Objectives</h2>
                     <p>
-                        By this evening, we will have a concrete understanding on -
+                        Concretely understanding the strange world of quantum mechanics.
                     </p>
-
-                    <ul>
+                    <ol>
                         <li ng-repeat="point in points">{{point}}</li>
-                    </ul>
+                    </ol>
                 </div>
             </div>
             <div class="divider"></div>
             <div class="section">
                 <div class="row">
-                    <div class="col s12 content">
-                        <h2 ng-class="cFont">Continuous Random Variables</h2>
-                        <p ng-class="cFont">
-                            Here's an overview about the a special class of random variables <i>continuous ones</i> .
-                            <br>
-                            <br>
-                            An example, the exact moment when a certain event will happen. You can't say when exactly
-                            something will happen. You'll define more of a region in time.
-                            <br>
-                            <br>
-                            For such situation, we idenitfy that we don't have the probability defined for a particular
-                            instance. It will be 0. Instead, we shall have to look at the probability over a certain
-                            region.
-                            <br>
-                            <br>
-                        </p>
-                        <h3 ng-class="cFont">
-                            Probability distribution function
-                        </h3>
-                        <p ng-class="cFont">
-                            It is exactly as it sounds. It's a function that show's how the spread of the probability
-                            is.
-                            <br>
-                            <br>
-                            Probability of an event corresponds the probability of the random variable being in a some
-                            range of possible values.
-                            Integration of the distribution function in the given region provides the required
-                            probability.
+                    <div class="col s12 content" ng-class="cFont">
+                        <h2>Infinite Potential Well</h2>
+                        <p>We start with the easiest potential which exists. The infinite potential well. Experience
+                            from the free particle shows us that we cannot make a simpler case. In the case of a
+                            potential well, we have the properties.</p>
+                        <ol>
+                            <li>The well has two boundaries. Each having the infinite potential till infinity</li>
+                            <li>Between the two wells, the potential is zero.</li>
+                        </ol>
+                        <p>In both the particle and the wave model, the entity gets reflected at the boundary. It cannot
+                            penetarte the barrier. So how does it localize itself inside the well ?</p>
+                        <p>We have a differential equation and we need to solve it. We use the constraints of the system
+                            as the boundary conditions to solve the differential equation.</p>
 
-                            <br>
-                            
-                        </p>
-                        <div id="calculator" style="width: 100%; height: 400px;"></div>
+                        <p>A simple sinusoid is the answer. Well, actually it's not just the answer. Sinusoids (plural)
+                            are the answers. There are multiple sinusoids which satisfy the Schrodinger wave equation
+                            for this system. Which is the correct answer ?</p>
+
+                        <p></p>
+
+                        <p>All of them. We need to take a little bit of all of them to construct our solution. The
+                            easiest way to see how much to take of each is by normalizing the wave function. By adding
+                            one other constarint, all the weights get fixed.</p>
+
+                        <p>Uhh, okay, where is it if I repeat the experiment ? How fast is it moving ? What is it's
+                            energy?</p>
                     </div>
                 </div>
             </div>
@@ -144,14 +136,20 @@
     angular.module('readApp', [])
         .controller('readController', function ($scope, $sce) {
 
-            // Page prep
-            $scope.page = {
-                'name': 'Probability'
+            // Class page
+            function Page(name = "", points = []) {
+                this.name = name
+                this.points = points
             }
-            $scope.points = [
-                'Discrete Random Variables',
-                'Continuous Random Variables'
-            ]
+
+
+            // Page prep
+
+            page = new Page('Quantum Mechanics', ['Schrodinger Wave Equation'])
+
+            $scope.page = page
+            $scope.points = page.points
+
             document.getElementById('title').innerHTML = $scope.page.name
 
             // List of fonts
@@ -164,7 +162,11 @@
             ]
 
             // Default
-            $scope.cFont = $scope.fonts[Math.floor(Math.random() * $scope.fonts.length)]
+            $scope.cFont = $scope.fonts[
+                // Math.floor(Math.random() * $scope.fonts.length)
+                4
+
+            ]
 
             $scope.setCFont = (sel) => {
                 $scope.cFont = sel;
