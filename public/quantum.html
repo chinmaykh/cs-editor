@@ -13,7 +13,13 @@
         href="https://fonts.googleapis.com/css2?family=Andika+New+Basic&family=Comfortaa:wght@300;400&family=Montserrat:wght@300&family=Raleway&family=Work+Sans:wght@300;400&display=swap"
         rel="stylesheet">
 
-
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+              tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+            });
+          </script>
 </head>
 
 <body ng-controller="readController">
@@ -56,33 +62,49 @@
             <div class="section">
                 <div class="row">
                     <div class="col s12 content" ng-class="cFont">
-                        <h2>Infinite Potential Well</h2>
-                        <p>We start with the easiest potential which exists. The infinite potential well. Experience
-                            from the free particle shows us that we cannot make a simpler case. In the case of a
-                            potential well, we have the properties.</p>
+                        <h2>The Hydrogen Atom</h2>
+                        <p>
+                            We now arrive to the most basic atom - hydrogen. A very simple system and the door to moe
+                            complex atoms. We consider this system because
+                        </p>
                         <ol>
-                            <li>The well has two boundaries. Each having the infinite potential till infinity</li>
-                            <li>Between the two wells, the potential is zero.</li>
+                            <li>Single electron species</li>
+                            <li>Simple potential function
+                                <ol>
+                                    <li>Time independence</li>
+                                    <li>Presence of only one electron will remove shielding effects</li>
+                                </ol>
+                            </li>
                         </ol>
-                        <p>In both the particle and the wave model, the entity gets reflected at the boundary. It cannot
-                            penetarte the barrier. So how does it localize itself inside the well ?</p>
-                        <p>We have a differential equation and we need to solve it. We use the constraints of the system
-                            as the boundary conditions to solve the differential equation.</p>
-
-                        <p>A simple sinusoid is the answer. Well, actually it's not just the answer. Sinusoids (plural)
-                            are the answers. There are multiple sinusoids which satisfy the Schrodinger wave equation
-                            for this system. Which is the correct answer ?</p>
-
-                        <p></p>
-
-                        <p>All of them. We need to take a little bit of all of them to construct our solution. The
-                            easiest way to see how much to take of each is by normalizing the wave function. By adding
-                            one other constarint, all the weights get fixed.</p>
-
-                        <p>Uhh, okay, where is it if I repeat the experiment ? How fast is it moving ? What is it's
-                            energy?</p>
+                        <p>
+                            Let's start with what we already know from previous models. We shall take the basics and
+                            introduce quantum mechanical calculations when needed.
+                        </p>
+                        <ol>
+                            <li>There is a central positive charge - nucleons </li>
+                            <li>An negative charge orbits the positive charge - electron</li>
+                            <li>The mass of the electron is very minute compared to the positive charge. Any motion of
+                                the electron around the nucleus doesn't cause consider shift in nuclear position.</li>
+                        </ol>
+                        <p>
+                            To determine the mechanics of the elctron in the orbit, we need to solve the Schrodigner
+                            Wave Equation. Since the potential is time independent, we shall use the time independent
+                            schrodinger equation for all calculations.
+                        </p>
+                        <p>
+                            I've been talking about the simple potential function for a while now, well what is it?
+                        </p>
+                        <p>
+                            $$ U(x) = \frac{1}{\sqrt{x^2+y^2+z^2}} $$
+                        </p>
+                        <p>
+                            This is kinda good, but since we are dealing with a 3D system, why not use a better coordinate system for ease. From here one, we can use the spherical polar system. In this system, the potential becomes.
+                        </p>
+                        <p>
+                            $$ U(r) = \frac{1}{r} $$
+                        </p>
                     </div>
-                </div>
+                </div>git
             </div>
 
         </div>
@@ -114,7 +136,8 @@
     }
 
     .content {
-        font-size: 20px
+        font-size: 20px;
+        scroll-snap-align: start;
     }
 
     .hfont {
@@ -123,6 +146,11 @@
 
     code {
         background-color: grey;
+    }
+
+    html {
+        scroll-behavior: smooth;
+        scroll-snap-type: y proximity;
     }
 </style>
 
@@ -145,7 +173,7 @@
 
             // Page prep
 
-            page = new Page('Quantum Mechanics', ['Schrodinger Wave Equation'])
+            page = new Page('Quantum Mechanics', ['Solving the Schrodinger Wave Equation of the potential of the atom'])
 
             $scope.page = page
             $scope.points = page.points
