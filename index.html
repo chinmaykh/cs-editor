@@ -1,100 +1,248 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="carnaticApp">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Carnatic Song editor</title>
 
-    <!-- Compiled and minified CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-    />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="title"></title>
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-  </head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="style.css">
 
-  <style>
-    .head_font {
-      font-family: "Comfortaa", cursive;
-    }
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Andika+New+Basic&family=Comfortaa:wght@300;400&family=Montserrat:wght@300&family=Raleway&family=Work+Sans:wght@300;400&display=swap"
+    rel="stylesheet">
 
-    /* valid color */
-    .input-field input[type="text"].valid.ng-dirty {
-      border-bottom: 1px solid green;
-      box-shadow: 0 1px 0 0 green;
-    }
+  <!-- <link href="/extras/noUiSlider-14.6.3/distribute/nouislider.min.css" rel="stylesheet">
+    <script src="/extras/noUiSlider-14.6.3/distribute/nouislider.min.js"></script> -->
 
-    /* invalid color */
-    .input-field input[type="text"].invalid.ng-dirty {
-      border-bottom: 1px solid red;
-      box-shadow: 0 1px 0 0 red;
-    }
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+</head>
 
-    .flines {
-      letter-spacing: 2em;
-    }
-  </style>
+<body ng-controller="rtpController">
+  <div class="navbar-fixed">
+    <nav class="nav-extended white">
+      <div class="nav-wrapper black z-depth-2">
+        <a href="#!" class="brand-logo comfortaa left" id="brandlogo" style="margin-left:10px">
+          CS Editor
+        </a>
 
-  <body ng-controller="rtpController">
-    <div class="container">
-      <div class="row">
-        <div class="col s12">
-          <h1 class="head_font">CS Editor v1.0.0</h1>
+        <ul id="nav-mobile" class="right">
+
+          <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">{{(activeTala.name)}}<i
+                class="material-icons right">arrow_drop_down</i></a></li>
+        </ul>
+      </div>
+      <ul id="dropdown1" class="dropdown-content">
+        <li ng-repeat="tala in talas"><a href="#!" ng-click='setTala(tala)'>{{tala.name}}</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="container">
+    <!-- About the tala -->
+    <div class="section row content">
+      <div class="col s6 center">Laghu / Dhruta / Dhruta </div>
+      <div class="col s6 center">Laghu - 4 / Dhruta - 4</div>
+    </div>
+    <div class="divider"></div>
+    <!-- The input area -->
+    <div class="section content">
+      <!-- Number of Rows -->
+      <div class="row" ng-repeat="row in editor track by $index">
+        <!-- number of Columns -->
+        <div class="col s6 input-field card-panel" ng-repeat="col in row track by $index">
+          <b class="ind" ng-class="validate(editor[$parent.$index][$index],activeTala.col[$index] )">{{
+            eflen(editor[$parent.$index][$index])}}
+            / {{activeTala.col[$index]}}</b>
+          <input type="text" autocorrect="off" class="validate" style="letter-spacing: 1em;"
+            ng-model="editor[$parent.$index][$index]">
+
         </div>
-        <div class="col s12">
-          <div class="divider"></div>
+      </div>
+      <!-- Process Button -->
+      <button class="btn" ng-click="process()">Processor ?</button>
+      <button class="btn right" ng-click="addRows(2)">Add rows</button>
+    </div>
+    <div class="divider"></div>
+    <div class="section content" id="output">
+      <!-- Number of Rows -->
+      <div class="row" ng-repeat="row in editor track by $index">
+        <!-- number of Columns -->
+        <div class="col s5 row" ng-repeat="col in row track by $index" style="letter-spacing: 1em;"
+          ng-bind-html="(efnotes(col))">
         </div>
       </div>
     </div>
+    <div class="divider"></div>
+  </div>
+  <script src=" https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js">
+  </script>
 
-    <style>
-      .u {
-        text-decoration: underline;
+</body>
+
+<!--Compiled and minified JavaScript-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+<script src="//code.angularjs.org/snapshot/angular-sanitize.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Find init
+    var elems = document.querySelectorAll('.collapsible');
+    var instances = M.Collapsible.init(elems, {});
+
+    // Dropdown
+    var drop_elems = document.querySelectorAll('.dropdown-trigger');
+    var drop_instances = M.Dropdown.init(drop_elems, {});
+
+    // Add scroll spy to controls
+    var instance = M.Tabs.init(document.getElementById('navtab'), {});
+
+    var sideelems = document.querySelectorAll('.sidenav');
+    var sideinstances = M.Sidenav.init(sideelems, {});
+  })
+</script>
+<script>
+  // Superpowered by angular
+  var readApp = angular.module('carnaticApp', [])
+  readApp.controller('rtpController', function ($scope, $sce) {
+    console.log('Controller ready...');
+    // Create a blank sheet
+    $scope.score = [];
+
+    // Module tala ? import from file
+    function Tala(name = String, col = Array, rowC = Number) {
+      this.name = name;
+      this.col = col;
+      this.rowC = rowC;
+    }
+
+    // Maintain base array of talas
+    talas = [];
+
+    talas.push(new Tala("Adi", [4, 4], 2));
+    talas.push(new Tala("Roopaka", [4, 2], 4));
+    talas.push(new Tala("Triputa", [3, 4], 4));
+
+    // List of talas
+    $scope.talas = talas;
+
+    // Editor
+
+    $scope.editor = []
+
+    // Setting the Tala
+    $scope.setTala = (talaName) => {
+
+      $scope.editor = []
+      console.log(talaName);
+      $scope.activeTala = talaName
+
+      for (let c = 0; c < talaName.rowC; c++) {
+
+        $scope.editor.push([])
+        console.log(talaName.col);
+        for (let d = 0; d < talaName.col.length; d++) {
+          $scope.editor[c].push("")
+        }
       }
-    </style>
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
 
-    <script>
-      // Superpowered by angular
-      angular
-        .module("carnaticApp", [])
-        .controller("rtpController", function($scope, $sce) {
-          console.log("Raaga Tala Pallavi");
+      console.log($scope.editor)
+    }
 
-          // Create a blank sheet
-          $scope.score = [];
+    // Process the input
+    $scope.process = () => {
 
-          // Module tala ? import from file
-          function Tala(name = String, col = Array, rowC = Number) {
-            this.name = name;
-            this.col = col;
-            this.rowC = rowC;
+    }
+
+    // By default set to Adi
+    $scope.setTala($scope.talas[0])
+
+    $scope.validate = (notes, explen) => {
+      if ($scope.eflen(notes) == explen) {
+        return 'teal accent-1'
+      } else {
+        return 'pink lighten-4'
+      }
+    }
+
+    $scope.eflen = (str) => {
+      len = 0
+      speed = 1
+      double = false;
+      triple = false;
+      for (let c = 0; c < str.length; c++) {
+        // For each element in the array
+        char = str[c]
+
+        // First correct the speed
+        if (char == 2) { double = !double }
+        else if (char == 3) { triple = !triple }
+        else {
+          // Then add the note with the right speed
+          if (triple) {
+            len += (0.25)
+            continue;
+          } else if (double) {
+            len += (0.5)
+            continue
+          } else {
+            if (char == ' ') { continue; }
+            len += 1
           }
 
-          // Maintain base array of talas
-          talas = [];
+        }
+        // Loop ends here
+      }
 
-          talas.push(new Tala("Adi", [4, 4], 2));
-          talas.push(new Tala("Roopaka", [4, 2], 4));
-          talas.push(new Tala("Triputa", [3, 4], 4));
+      return len
+    }
 
-          // List of talas
-          $scope.talas = talas;
+    $scope.efnotes = (str) => {
+      len = ""
+      speed = 1
+      double = false;
+      triple = false;
+      for (let c = 0; c < str.length; c++) {
+        // For each element in the array
+        char = str[c]
 
-          var select_elems = document.querySelectorAll("select");
-          var select_instances = M.FormSelect.init(select_elems, {});
-        });
-    </script>
-  </body>
+        if (char == 3) {
+          if (!triple) { len += '<abbr>' } else { len += '</abbr>' }
+          triple = !triple
+        } else if (char == 2) {
+          if (triple) { continue; }
+          if (!double) { len += '<u>' } else { len += '</u>' }
+          double = !double
+        } else {
+          len += char
+        }
+      }
+      return $sce.trustAsHtml(len + '/')
+    }
+
+    $scope.exportScore = () => {
+
+    }
+
+    console.log($scope.efnotes('3sss2ss2ss3'))
+
+    $scope.addRows = (rowCount) => {
+      // Columns in each row
+      cols = []
+      for (let c = 0; c < $scope.activeTala.col.length; c++) {
+        cols.push([])
+      }
+      for (let c = 0; c < rowCount; c++) {
+        $scope.editor.push(cols)
+      }
+    }
+
+  })
+</script>
+
 </html>
