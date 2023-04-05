@@ -1,0 +1,9 @@
+md`# Maxwell Distribution`
+
+md` In this exercise, we develop the Maxwell's distribution for molecular velocities. It is a classical concept and explains the molecular velocity distributio very accurately in the correct range.`
+
+md` Mathematically, we want to find the <i> probability distribution function </i> for the velocity random variable. <br><br> This means, we need to find the function 'f' of the form`
+
+tex.block`	\int_{a}^b f(x)dx`
+
+md``

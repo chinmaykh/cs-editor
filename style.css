@@ -1,11 +1,76 @@
-/* CSS files add styling rules to your content */
+.andika {
+  font-family: 'Andika New Basic', sans-serif;
 
-body {
-  font-family: helvetica, arial, sans-serif;
-  margin: 2em;
 }
 
-h1 {
-  font-style: italic;
-  color: #373fff;
+.montserrat {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.raleway {
+  font-family: 'Raleway', sans-serif;
+}
+
+.work-sans {
+  font-family: 'Work Sans', sans-serif;
+}
+
+.comfortaa {
+  font-family: 'Comfortaa', sans-serif;
+}
+
+.content {
+  font-size: 20px;
+}
+
+.hfont {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.scrollstop {
+  scroll-snap-align: start;
+  scroll-margin-top: 80px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  background-color: yellow;
+}
+
+input[type=range]::-moz-range-thumb {
+  background-color: yellow;
+}
+
+input[type=range]::-ms-thumb {
+  background-color: yellow;
+}
+
+/***** These are to edit the thumb and the text inside the thumb *****/
+input[type=range]+.thumb {
+  background-color: #dedede;
+}
+
+input[type=range]+.thumb.active .value {
+  color: black;
+}
+
+code {
+  background-color: grey;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* scroll-snap-type: y mandatory; */
+}
+
+.math {
+  overflow-x: scroll;
+}
+
+.ind{
+  padding:2px;
+}
+
+abbr{
+  text-decoration:underline;
+  border-bottom: 2px solid rgb(0, 0, 0);
 }

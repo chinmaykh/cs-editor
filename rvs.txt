@@ -1,0 +1,78 @@
+   <h2>Discrete Random Variables</h2>
+                        <div class="row">
+                            <ul class="collapsible col l6 s12" ng-repeat="rv in rvs">
+                                <li>
+                                    <div class="collapsible-header"><a ng-href="{{rv.link}}" target="_blank"><i
+                                                class="material-icons">insert_chart</i></a>{{rv.name}}</div>
+                                    <div class="collapsible-body center">
+                                        <span>
+                                            <p math-jax-bind="rv.df" style="overflow-x: scroll;"></p>
+                                            <div class="divider"></div>
+
+                                            <p>{{rv.img}}</p>
+                                            <div class="divider"></div>
+                                            <div class="row">
+                                                <div class="col s4">
+                                                    <p>Mean</p>
+                                                    <div math-jax-bind="rv.mean" style="overflow-x: scroll;">
+                                                    </div>
+                                                </div>
+                                                <div class="col s8">
+                                                    <p>Variance</p>
+                                                    <div math-jax-bind="rv.vr" style="overflow-x: scroll;">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <a ng-href="{{rv.link}}" target="_blank">Calculator</a>
+                                        </span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="divider"></div>
+                        <h2>Continuous Random Variables</h2>
+                        <div class="row">
+                            <ul class="collapsible col l6 s12" ng-repeat="rv in crvs">
+                                <li>
+                                    <div class="collapsible-header center"><a ng-href="{{rv.link}}" target="_blank"><i
+                                                class="material-icons">insert_chart</i></a>{{rv.name}}</div>
+                                    <div class="collapsible-body center">
+                                        <span>
+                                            <p math-jax-bind="rv.df" style="overflow-x: scroll;"></p>
+                                            <div class="divider"></div>
+
+                                            <p>{{rv.img}}</p>
+                                            <div class="divider"></div>
+                                            <p>Cumulative Function</p>
+                                            <p math-jax-bind="rv.cf" style="overflow-x: scroll;"></p>
+                                            <div class="divider"></div>
+                                            <div class="row">
+                                                <div class="col s4">
+                                                    <p>Mean</p>
+                                                    <div math-jax-bind="rv.mean" style="overflow-x: scroll;">
+                                                    </div>
+                                                </div>
+                                                <div class="col s8">
+                                                    <p>Variance</p>
+                                                    <div math-jax-bind="rv.vr" style="overflow-x: scroll;">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <a ng-href="{{rv.link}}" target="_blank">Calculator</a>
+                                        </span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <h2>Sums of Joint Random Variables</h2>
+                        <p>These are some points they like to use</p>
+                        <ol>
+                            <li>Sums of joint RVs</li>
+                            <li>Cumulative function of a sum of 'n' uniform variables is $$ \frac{x^n}{n!} $$ </li>
+                            <li>When multiple normal variables, the parameters add</li>
+                            <li>When multiple poisson distributions, the parameters add</li>
+                            <li>When multiple binomials with different number of experiments, they add</li>
+                        </ol>
